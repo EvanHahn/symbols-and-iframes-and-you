@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<link rel="stylesheet" href="the.css">
+<style>
+html {
+  background-color: #f0f0f0;
+}
+</style>
+
+</head>
+<body>
+
+<p>Hello from an iframe!</p>
+
+<pre id="result">window.symbolFromTheIframe === window.parent.symbolFromTheParent
+// </pre>
+
+<script>
+window.symbolFromTheIframe = Symbol.for('foo')
+
+window.parent.postMessage('ready', '*')
+
+const resultEl = document.querySelector('#result')
+
+const result = window.symbolFromTheIframe === window.parent.symbolFromTheParent
+
+resultEl.innerHTML += result
+</script>
+
+</body>
+</html>

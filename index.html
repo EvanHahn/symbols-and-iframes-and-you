@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<title>Symbols and iframes and you</title>
+<link rel="stylesheet" href="the.css">
+<style>
+body {
+  margin: 0 auto;
+  width: 95%;
+  max-width: 700px;
+}
+</style>
+
+</head>
+<body>
+
+<h1>Symbols and iframes and you</h1>
+
+<p>Both the iframe and the outer page have a symbol created with <code>Symbol.for('foo')</code>.</p>
+
+<pre id="result">window.symbolFromTheParent === iframe.contentWindow.symbolFromTheIframe
+// </pre>
+
+<script>
+window.symbolFromTheParent = Symbol.for('foo')
+
+window.addEventListener('message', (event) => {
+  if (event.data !== 'ready') { return }
+
+  const iframe = document.querySelector('iframe')
+  const resultEl = document.querySelector('#result')
+
+  const result = window.symbolFromTheParent === iframe.contentWindow.symbolFromTheIframe
+
+  resultEl.innerHTML += result
+})
+</script>
+
+<iframe src="inner.html" width="100%"></iframe>
+
+</body>
+</html>
